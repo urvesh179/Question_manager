@@ -38,13 +38,9 @@ exports.getUser = async (req, res) => {
 exports.login = async (req, res) => {
     
     try {
-        var role_id=await Role.findOne({
-            name:req.body.role
-        })
         
         const u = await user.findOne({
             username: req.body.username,
-            role_id:role_id._id,
             is_deleted: false
         })
         if (u == null) {
