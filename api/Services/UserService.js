@@ -1,5 +1,6 @@
 const user = require('../models/User');
 const util = require('./utils');
+const bcrypt=require('bcryptjs');
 
 exports.addUser = async (req, res) => {
     try {
@@ -38,12 +39,11 @@ exports.getUser = async (req, res) => {
 exports.login = async (req, res) => {
     
     try {
-        
         const u = await user.findOne({
             username: req.body.username,
             is_deleted: false
         })
-        if (u == null) {
+        if (!u) {
             return res.status(401).send("Invalid User");
         }
         let valid = await bcrypt.compare(req.body.password, u.password);
