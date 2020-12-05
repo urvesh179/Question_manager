@@ -11,6 +11,7 @@ function Login(props) {
     var[password,setPassword]=useState("");
     
 
+    var logo="../assets/images/logo.jpeg";
     var path = "../assets/images/about_layout.png";
     var style = {
         backgroundImage: "url(" + path + ")",
@@ -26,8 +27,7 @@ function Login(props) {
         event.preventDefault();
         let user={
             username:username,
-            password:password,
-            role:"Admin"
+            password:password
         }
         
         await actions.loginAction(userDispatch,user);
@@ -44,7 +44,8 @@ function Login(props) {
                     <div className="card mb-0">
                         <div className="card-body">
                             <div className="text-center mb-3">
-                                <i className="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                                {/* <i className="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i> */}
+                                <img src={logo} width="220px"/>
                                 <h5 className="mb-0">Login to your account</h5>
                                 <span className="d-block text-muted">Enter your credentials below</span>
                                 

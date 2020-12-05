@@ -59,7 +59,7 @@ function Dashboard(props) {
                                 <div className="card bg-indigo-400" style={style}>
                                     <div className="card-body">
                                         <div className="d-flex">
-                                            <h3 className="font-weight-semibold mb-0">{receiver}</h3>
+                                            <h3 className="font-weight-semibold mb-0">10</h3>
                                             <div className="list-icons ml-auto"><i className="icon-collaboration mr-3 icon-2x"></i>
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@ function Dashboard(props) {
                                 <div className="card bg-danger-400" style={style}>
                                     <div className="card-body">
                                         <div className="d-flex">
-                                            <h3 className="font-weight-semibold mb-0">{event}</h3>
+                                            <h3 className="font-weight-semibold mb-0">10</h3>
                                             <div className="list-icons ml-auto"><i className="icon-calendar3 mr-3 icon-2x"></i>
                                             </div>
                                         </div>
