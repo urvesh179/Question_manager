@@ -18,7 +18,7 @@ const QASchema=mongoose.Schema({
         type:Array,
         required:true
     },
-    is_deleted:
+    isDeleted:
     {
         type:Boolean,
         required:true,

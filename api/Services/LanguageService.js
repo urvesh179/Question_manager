@@ -23,7 +23,7 @@ exports.addLanguage=async(req,res)=>
 
 exports.getAllLanguage = async (req, res) => {
     try {
-        const data = await Language.find({is_deleted:false})
+        const data = await Language.find({isDeleted:false})
         res.status(200).send(data)
 
     } catch (err) {
@@ -35,7 +35,7 @@ exports.getLanguageById = async (req, res) => {
     try {
         const data = await Language.findOne({
             _id: req.params.id,
-            is_deleted: 0
+            isDeleted: 0
         })
         if (data) {
             return res.status(200).send(data)
@@ -53,7 +53,7 @@ exports.getLanguageById = async (req, res) => {
 exports.deleteLanguage = async (req, res) => {
     try {
         const data = await Language.findById(req.params.id);
-        data.is_deleted=true;
+        data.isDeleted=true;
         await data.save();
         res.status(200).send(data)
 

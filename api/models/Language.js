@@ -12,7 +12,7 @@ const LanguageSchema=mongoose.Schema({
     {
         type:String
     },
-    is_deleted:
+    isDeleted:
     {
         type:Boolean,
         required:true,
