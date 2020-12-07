@@ -5,8 +5,4 @@ api/package.json
 api/public
 ui/package.json
 ui/package-lock.json
-<<<<<<< HEAD
 package-lock.json
-=======
-package-lock.json
->>>>>>> a4f1149f14e34fe2891e2131202abc34a5dac903
