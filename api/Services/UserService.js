@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
     try {
         const u = await user.findOne({
             username: req.body.username,
-            is_deleted: false
+            isDeleted: false
         })
         if (!u) {
             return res.status(401).send("Invalid User");

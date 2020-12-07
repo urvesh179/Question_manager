@@ -7,6 +7,7 @@ var mongoose= require('mongoose');
 
 var userRoute=require('./routes/UserRoute');
 var languageRoute=require('./routes/LanguageRoute');
+var QARoute= require('./routes/QARoute');
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user',userRoute);
 app.use('/language',languageRoute);
+app.use('/qa',QARoute);
 
 app.use('/*',(req,res)=>
 {

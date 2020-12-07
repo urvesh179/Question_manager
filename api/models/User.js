@@ -16,7 +16,7 @@ const UserSchema=mongoose.Schema({
         required:true,
         minlength:6
     },
-    is_deleted:
+    isDeleted:
     {
         type:Boolean,
         required:true,
