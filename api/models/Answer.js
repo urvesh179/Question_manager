@@ -1,21 +1,16 @@
 const mongoose=require("mongoose");
 
-const QASchema=mongoose.Schema({
+const AnswerSchema=mongoose.Schema({
    
-    languageId:
+    questionId:
     {
-        type:Array,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:"Language"
+        ref:"Question"
     },
-    questions:
+    answer:
     {
         type:String,
-        required:true
-    },
-    answers:
-    {
-        type:Array,
         required:true
     },
     isDeleted:
@@ -29,6 +24,6 @@ const QASchema=mongoose.Schema({
     timestamps: true,
 });
 
-const QA = mongoose.model("QA", QASchema);
+const Answer = mongoose.model("Answer", AnswerSchema);
 
-module.exports = QA;
+module.exports = Answer;

@@ -1,8 +1,8 @@
-const QA=require('../models/QA');
+const Answer=require('../models/Answer');
 
 exports.getAll = async (req, res) => {
     try {
-        const data = await QA.find({isDeleted:false})
+        const data = await Answer.find({isDeleted:false})
         res.status(200).send(data)
 
     } catch (err) {
@@ -13,8 +13,8 @@ exports.getAll = async (req, res) => {
 exports.add=async(req,res)=>
 {
     try{
-        const qa=new QA(req.body);
-        const result=await qa.save();
+        const answer=new Answer(req.body);
+        const result=await answer.save();
         if(result)
         {
             return res.status(201).send(result);
@@ -30,38 +30,9 @@ exports.add=async(req,res)=>
     }
 }
 
-exports.addAns=async(req,res)=>
-{
-    try{
-        const id=req.params.id;
-        const data=await QA.findOne({_id:id,isDeleted:0});
-        if(data!=null)
-        {
-            data.answers.push(req.body.answers);
-            const result=await data.save();
-            if(result)
-            {
-                return res.status(201).send(result);
-            }
-            else
-            {
-                return res.status(400).send("bad request");
-            }
-        }
-        return res.status(400).send("no question found");
-        
-        
-
-    }catch(err)
-    {
-        res.status(400).send(err);
-    }
-}
-
-
 exports.getById = async (req, res) => {
     try {
-        const data = await QA.findOne({
+        const data = await Answer.findOne({
             _id: req.params.id,
             isDeleted: 0
         })
@@ -73,14 +44,14 @@ exports.getById = async (req, res) => {
         }
 
     } catch (err) {
-        return res.status(400).send("Language Not Found");
+        return res.status(400).send("Answer Not Found");
     }
 }
 
 
 exports.delete = async (req, res) => {
     try {
-        const data = await QA.findById(req.params.id);
+        const data = await Answer.findById(req.params.id);
         data.isDeleted=true;
         await data.save();
         res.status(200).send(data)
@@ -92,12 +63,12 @@ exports.delete = async (req, res) => {
 
 exports.edit = async (req, res) => {
     try {
-        await QA.findByIdAndUpdate(req.params.id, req.body,{new:true,runValidators:true}, (err) => {
+        await Answer.findByIdAndUpdate(req.params.id, req.body,{new:true,runValidators:true}, (err) => {
             if (err) {
                 return res.status(400).send(err)
             }
             else {
-                return res.status(201).send("Language Updated")
+            return res.status(201).send("Answer Updated")
             }
         });
     } catch (e) {

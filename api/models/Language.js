@@ -23,8 +23,8 @@ const LanguageSchema=mongoose.Schema({
     timestamps: true,
 });
 
-LanguageSchema.virtual('QA', {
-    ref: 'QA',
+LanguageSchema.virtual('Question', {
+    ref: 'Question',
     localField: '_id',
     foreignField: 'languageId'
 })
