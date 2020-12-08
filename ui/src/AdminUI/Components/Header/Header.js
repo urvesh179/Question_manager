@@ -3,7 +3,7 @@ import Avatar from 'react-avatar';
 
 function Header(props) {
 
-	var logo="../assets/images/logo.jpeg";
+	var logo="../../assets/images/logo.jpeg";
 	var user = JSON.parse(localStorage.getItem('user'));
 	
 
