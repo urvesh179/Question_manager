@@ -5,8 +5,12 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import Login from "./Components/Login/Login";
 import Logout from "./Components/Logout";
 import AddLanguage from './Components/Language/AddLanguage';
-import EditLanguage from './Components/Language/EditLanguage';
 import LanguageList from './Components/Language/LanguageList';
+import EditLanguage from './Components/Language/EditLanguage';
+import AddQuestion from './Components/Question/AddQuestion';
+import QuestionList from './Components/Question/QuestionList';
+
+
 function App(props) {
 
   var { token } = useUserState();
@@ -26,6 +30,10 @@ function App(props) {
         <Route path="/admin/addlanguage" exact component={AddLanguage} />
         <Route path="/admin/languagelist" exact component={LanguageList} />
         <Route path="/admin/editlanguage/:id" exact component={EditLanguage} />
+
+        <Route path="/admin/addquestion" exact component={AddQuestion} />
+        <Route path="/admin/questionlist" exact component={QuestionList} />
+        <Route path="/admin/editquestion/:id" exact component={EditLanguage} />
       </Switch>
     </>
   );

@@ -2,7 +2,7 @@ const Question=require('../models/Question');
 
 exports.getAll = async (req, res) => {
     try {
-        const data = await Question.find({isDeleted:false})
+        const data = await Question.find({isDeleted:false}).populate("languageId")
         res.status(200).send(data)
 
     } catch (err) {

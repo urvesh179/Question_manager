@@ -3,43 +3,65 @@ import { withRouter } from 'react-router';
 
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
-import * as actions from '../../../Actions/LanguageAction';
+import * as lactions from '../../../Actions/LanguageAction';
+import * as actions from '../../../Actions/QuestionAction';
 
 import { useLanguageDispatch, useLanguageState } from '../../../Context/LanguageContext';
+import { useQuestionDispatch, useQuestionState } from '../../../Context/QuestionContext';
 
+function AddQuestion(props) {
 
-
-function AddLanguage(props) {
-
-    var { error, language } = useLanguageState();
+    var { languages } = useLanguageState();
     var languageDispatch = useLanguageDispatch();
-    var [name, setName] = useState("");
-    var [description, setDescription] = useState("");
+
+    var { error, question } = useQuestionState();
+    var questionDispatch = useQuestionDispatch();
+
+    var [language, setLanguage] = useState([]);
+    var [que, setQue] = useState("");
     var [validation, setValidation] = useState("");
 
     useEffect(() => {
-        if (language != null) {
-            props.history.push("/admin/languagelist")
+        if (question != null) {
+            props.history.push("/admin/questionlist")
         }
-    }, [error, language])
+    }, [error, question])
+
+    useEffect(async () => {
+        await lactions.getAllLanguage(languageDispatch);
+    }, [])
+
+    var lan = languages.map(l => {
+        lan = (<option value={l._id}>{l.name}</option>)
+        return lan;
+    })
 
     const reset = () => {
-        setName("");
-        setDescription("");
+        setLanguage("");
+        setQue("");
         setValidation("");
         error = "";
-        language = "";
+        question = "";
     }
 
+    const onChangeLanguage = async (event) => {
+        var selected = [];
+        for (var option of document.getElementById('language').options) {
+            if (option.selected) {
+                selected.push(option.value);
+            }
+        }
+        setLanguage(selected)
+    }
 
-    const addlanguage = async (event) => {
+    const addquestion = async (event) => {
         event.preventDefault();
         if (await validate()) {
             const data = {
-                name,
-                description
+                languageId: language,
+                question: que
             }
-            await actions.addLanguage(languageDispatch,data);
+            await actions.addQuestion(questionDispatch, data);
         }
     }
 
@@ -47,19 +69,21 @@ function AddLanguage(props) {
         let err = {};
         let isValid = true;
 
-        if (!name) {
+        if (!language) {
             isValid = false;
-            err["name"] = "Please enter name.";
+            err["language"] = "Please select any language.";
         }
 
-        if (!description) {
+        if (!que) {
             isValid = false;
-            err["description"] = "Please enter description.";
+            err["question"] = "Please enter question.";
         }
 
         setValidation(err)
         return isValid;
     }
+
+
     return (
         <>
             <Header />
@@ -71,7 +95,7 @@ function AddLanguage(props) {
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline" style={{ height: "55px" }}>
                             <div class="page-title d-flex">
-                                <h4><span class="font-weight-semibold">Add Language </span></h4>
+                                <h4><span class="font-weight-semibold">Add Question </span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
 
@@ -82,7 +106,7 @@ function AddLanguage(props) {
                             <div class="d-flex">
                                 <div class="breadcrumb">
                                     <a href="/admin" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Dashboard</a>
-                                    <a href="/admin/addlanguage" class="breadcrumb-item">Add Language</a>
+                                    <a href="/admin/addquestion" class="breadcrumb-item">Add Question</a>
                                 </div>
 
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -103,26 +127,27 @@ function AddLanguage(props) {
                                     </div>
 
                                     <div class="card-body">
-                                        <form onSubmit={addlanguage} onReset={reset}>
-
+                                        <form onSubmit={addquestion} onReset={reset}>
                                             <div class="form-group row">
-                                                <label class="col-form-label col-lg-2">Name <span class="text-danger">*</span></label>
+                                                <label class="col-form-label col-lg-2">Language <span class="text-danger">*</span></label>
                                                 <div class="col-lg-9">
-                                                    <input class="form-control" type="text" name="name" placeholder="Enter Name"
-                                                        value={name} onChange={(e) => setName(e.target.value)} />
-                                                    <div className="validation-invalid-label">{validation["name"]}</div>
+                                                    <select id="language" name="language" multiple class="form-control" required="" size="2"
+                                                        onChange={onChangeLanguage}
+                                                    >
+                                                        {lan}
+                                                    </select>
+                                                    <div className="validation-invalid-label">{validation["language"]}</div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-form-label col-lg-2">Description <span class="text-danger">*</span></label>
+                                                <label class="col-form-label col-lg-2">Question <span class="text-danger">*</span></label>
                                                 <div class="col-lg-9">
-                                                    <textarea rows="3" name="description" cols="3" class="form-control" placeholder="Enter Description" aria-invalid="true"
-                                                        value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-                                                    <div className="validation-invalid-label">{validation["description"]}</div>
+                                                    <input class="form-control" type="text" name="question" placeholder="Enter Question"
+                                                        value={que} onChange={(e) => setQue(e.target.value)} />
+                                                    <div className="validation-invalid-label">{validation["question"]}</div>
                                                 </div>
                                             </div>
-
 
                                             <div class="form-group row mb-0">
                                                 <div class="col-lg-10 ml-lg-auto">
@@ -149,4 +174,4 @@ function AddLanguage(props) {
     )
 }
 
-export default withRouter(AddLanguage);
+export default withRouter(AddQuestion);

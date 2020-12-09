@@ -1,28 +1,28 @@
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
-const QuestionSchema=mongoose.Schema({
+const QuestionSchema = mongoose.Schema({
+
    
-    languageId:
-    {
-        type:Array,
-        required:true,
-        ref:"Language"
-    },
+    languageId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "Language"
+    }],
     question:
     {
-        type:String,
-        required:true
+        type: String,
+        required: true
     },
     isDeleted:
     {
-        type:Boolean,
-        required:true,
-        default:false
+        type: Boolean,
+        required: true,
+        default: false
     }
 },
-{
-    timestamps: true,
-});
+    {
+        timestamps: true,
+    });
 
 QuestionSchema.virtual('Answer', {
     ref: 'Answer',
