@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { withRouter } from 'react-router';
 
 import Header from '../Header/Header';
@@ -9,7 +9,8 @@ import * as actions from '../../../Actions/QuestionAction';
 import { useLanguageDispatch, useLanguageState } from '../../../Context/LanguageContext';
 import { useQuestionDispatch, useQuestionState } from '../../../Context/QuestionContext';
 
-function AddQuestion(props) {
+
+function EditQuestion(props) {
 
     var { languages } = useLanguageState();
     var languageDispatch = useLanguageDispatch();
@@ -20,12 +21,18 @@ function AddQuestion(props) {
     var [language, setLanguage] = useState([]);
     var [que, setQue] = useState("");
     var [validation, setValidation] = useState("");
+    var [id, setId] = useState(props.match.params.id);
 
-    useEffect(() => {
+    useEffect(async () => {
+        await actions.getQuestionById(questionDispatch, id);
+    }, [])
+
+    useEffect(async () => {
         if (question != null) {
-            props.history.push("/admin/questionlist")
+            setQue(question.question)
+            setLanguage(question.languageId)
         }
-    }, [error, question])
+    }, [question])
 
     useEffect(async () => {
         await lactions.getAllLanguage(languageDispatch);
@@ -54,14 +61,15 @@ function AddQuestion(props) {
         setLanguage(selected)
     }
 
-    const addquestion = async (event) => {
+    const editquestion = async (event) => {
         event.preventDefault();
         if (await validate()) {
             const data = {
                 languageId: language,
                 question: que
             }
-            await actions.addQuestion(questionDispatch, data);
+            await actions.updateQuestion(questionDispatch, id, data);
+            props.history.push('/admin/questionlist')
         }
     }
 
@@ -82,8 +90,6 @@ function AddQuestion(props) {
         setValidation(err)
         return isValid;
     }
-
-
     return (
         <>
             <Header />
@@ -95,7 +101,7 @@ function AddQuestion(props) {
                     <div class="page-header page-header-light">
                         <div class="page-header-content header-elements-md-inline" style={{ height: "55px" }}>
                             <div class="page-title d-flex">
-                                <h4><span class="font-weight-semibold">Add Question </span></h4>
+                                <h4><span class="font-weight-semibold">Edit Question </span></h4>
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                             </div>
 
@@ -106,7 +112,8 @@ function AddQuestion(props) {
                             <div class="d-flex">
                                 <div class="breadcrumb">
                                     <a href="/admin" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Dashboard</a>
-                                    <a href="/admin/addquestion" class="breadcrumb-item">Add Question</a>
+                                    <a href="#" class="breadcrumb-item">Edit Question</a>
+
                                 </div>
 
                                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -127,12 +134,15 @@ function AddQuestion(props) {
                                     </div>
 
                                     <div class="card-body">
-                                        <form onSubmit={addquestion} onReset={reset}>
+                                        <form onSubmit={editquestion} onReset={reset}>
+                                            <input type="hidden" name="id" value={id} />
+
+
                                             <div class="form-group row">
                                                 <label class="col-form-label col-lg-2">Languages <span class="text-danger">*</span></label>
                                                 <div class="col-lg-9">
                                                     <select id="language" name="language" multiple class="form-control" required="" size="2"
-                                                        onChange={onChangeLanguage}
+                                                        onChange={onChangeLanguage} value={language}
                                                     >
                                                         {lan}
                                                     </select>
@@ -153,7 +163,7 @@ function AddQuestion(props) {
                                                 <div class="col-lg-10 ml-lg-auto">
                                                     <button type="reset" style={{ borderColor: "#26a69a" }} class="btn btn-light"
                                                     >Reset<i class="icon-reset ml-2"></i></button>
-                                                    <button type="submit" class="btn bg-teal-400 ml-3">Add <i class="icon-paperplane ml-2"></i></button>
+                                                    <button type="submit" class="btn bg-teal-400 ml-3">Edit <i class="icon-paperplane ml-2"></i></button>
                                                     <div style={{ color: "red", fontSize: "18px", paddingTop: "5px" }}>{error}</div>
 
                                                 </div>
@@ -174,4 +184,4 @@ function AddQuestion(props) {
     )
 }
 
-export default withRouter(AddQuestion);
+export default EditQuestion;

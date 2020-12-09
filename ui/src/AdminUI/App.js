@@ -9,6 +9,7 @@ import LanguageList from './Components/Language/LanguageList';
 import EditLanguage from './Components/Language/EditLanguage';
 import AddQuestion from './Components/Question/AddQuestion';
 import QuestionList from './Components/Question/QuestionList';
+import EditQuestion from './Components/Question/EditQuestion';
 
 
 function App(props) {
@@ -33,7 +34,7 @@ function App(props) {
 
         <Route path="/admin/addquestion" exact component={AddQuestion} />
         <Route path="/admin/questionlist" exact component={QuestionList} />
-        <Route path="/admin/editquestion/:id" exact component={EditLanguage} />
+        <Route path="/admin/editquestion/:id" exact component={EditQuestion} />
       </Switch>
     </>
   );
