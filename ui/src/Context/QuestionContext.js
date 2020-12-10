@@ -5,7 +5,6 @@ var QuestionStateContext = React.createContext()
 var QuestionDispatchContext = React.createContext()
 
 function QuestionReducer(state, action) {
-	console.log(action.type);
 	switch (action.type) {
 		case ActionNames.ADD_QUESTION:
 			return { ...state, question: action.data.question, error: null }
