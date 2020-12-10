@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router';
+import SunEditor from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
 
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import * as lactions from '../../../Actions/LanguageAction';
 import * as actions from '../../../Actions/QuestionAction';
+import * as aactions from '../../../Actions/AnswerAction';
 
 import { useLanguageDispatch, useLanguageState } from '../../../Context/LanguageContext';
 import { useQuestionDispatch, useQuestionState } from '../../../Context/QuestionContext';
+import { useAnswerDispatch, useAnswerState } from '../../../Context/AnswerContext';
 
 function AddQuestion(props) {
 
@@ -17,15 +21,83 @@ function AddQuestion(props) {
     var { error, question } = useQuestionState();
     var questionDispatch = useQuestionDispatch();
 
+    var { error, answer } = useAnswerState();
+    var answerDispatch = useAnswerDispatch();
+
     var [language, setLanguage] = useState([]);
     var [que, setQue] = useState("");
+    var [ans, setAns] = useState("");
     var [validation, setValidation] = useState("");
 
-    useEffect(() => {
-        if (question != null) {
+    const [details, setDetails] = useState([]);
+
+    const renderSpecifications = (details, handleChange, deleteAnswer) => {
+        return details.map(detail => (
+            <div key={detail.key} >
+
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Answer <span class="text-danger">*</span></label>
+
+                    <div class="col-lg-9">
+                        <SunEditor
+                            setContents={ans}
+                            onChange={(val) => handleChange(detail.key, val)}
+                            placeholder="Write Answer Here."
+                            lang="en"
+                            height="100"
+                            setOptions={{
+                                buttonList: [
+                                    ["undo", "redo"],
+                                    ["font", "fontSize", "formatBlock", "paragraphStyle", "blockquote", "bold", "underline", "italic", "strike", "subscript", "superscript",
+                                        "fontColor", "textStyle"],
+                                    ["removeFormat"],
+                                    ["table", "list", "lineHeight"]
+                                ]
+                            }} />
+
+                    </div>
+
+                    <div>
+                        <button class="btn bg-teal-400 ml-1" onClick={() => deleteAnswer(detail.key)}>X</button>
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+
+    const addAnswer = () => {
+        let newDetails = [...details];
+        newDetails.push({ key: details.length, details: "" });
+        setDetails(newDetails);
+    }
+
+    const deleteAnswer = (key) => {
+        let newDetails = [...details].filter(detail => detail.key !== key);
+        setDetails(newDetails);
+    }
+    const handleDetailDataChange = (key, value) => {
+        let newDetails = [...details];
+        newDetails[key].details = value;
+        setDetails(newDetails);
+    }
+
+    useEffect(async () => {
+        if (answer != null) {
             props.history.push("/admin/questionlist")
         }
-    }, [error, question])
+    }, [error, answer])
+
+    useEffect(async () => {
+        if (question != null) {
+            details.forEach(async (final) => {
+                const answerdata = {
+                    questionId: question._id,
+                    answer: final.details
+                }
+                await aactions.addAnswer(answerDispatch, answerdata)
+            });
+        }
+    }, [question])
 
     useEffect(async () => {
         await lactions.getAllLanguage(languageDispatch);
@@ -40,6 +112,7 @@ function AddQuestion(props) {
         setLanguage("");
         setQue("");
         setValidation("");
+        setAns("");
         error = "";
         question = "";
     }
@@ -52,6 +125,10 @@ function AddQuestion(props) {
             }
         }
         setLanguage(selected)
+    }
+
+    const add = async (event) => {
+        event.preventDefault();
     }
 
     const addquestion = async (event) => {
@@ -79,9 +156,15 @@ function AddQuestion(props) {
             err["question"] = "Please enter question.";
         }
 
+        if (details.length == 0) {
+            isValid = false;
+            err["answer"] = "Please add atleast one answer.";
+        }
+
         setValidation(err)
         return isValid;
     }
+
 
 
     return (
@@ -127,7 +210,7 @@ function AddQuestion(props) {
                                     </div>
 
                                     <div class="card-body">
-                                        <form onSubmit={addquestion} onReset={reset}>
+                                        <form onSubmit={add} onReset={reset}>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-lg-2">Languages <span class="text-danger">*</span></label>
                                                 <div class="col-lg-9">
@@ -146,6 +229,19 @@ function AddQuestion(props) {
                                                     <input class="form-control" type="text" name="question" placeholder="Enter Question"
                                                         value={que} onChange={(e) => setQue(e.target.value)} />
                                                     <div className="validation-invalid-label">{validation["question"]}</div>
+                                                    <div className="validation-invalid-label">{validation["answer"]}</div>
+                                                </div>
+                                            </div>
+                                            
+                                            {renderSpecifications(details, handleDetailDataChange, deleteAnswer)}
+                                            <div class="form-group row">
+                                                <div class="card-header header-elements-inline" style={{ marginLeft: "700px" }}>
+                                                    <h5 class="card-title"></h5>
+                                                    <div class="header-elements">
+                                                        <div class="list-icons">
+                                                            <button onClick={addAnswer} class="btn bg-teal-400 ml-3" >Add Answer + </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -153,7 +249,7 @@ function AddQuestion(props) {
                                                 <div class="col-lg-10 ml-lg-auto">
                                                     <button type="reset" style={{ borderColor: "#26a69a" }} class="btn btn-light"
                                                     >Reset<i class="icon-reset ml-2"></i></button>
-                                                    <button type="submit" class="btn bg-teal-400 ml-3">Add <i class="icon-paperplane ml-2"></i></button>
+                                                    <button type="submit" onClick={addquestion} class="btn bg-teal-400 ml-3">Add <i class="icon-paperplane ml-2"></i></button>
                                                     <div style={{ color: "red", fontSize: "18px", paddingTop: "5px" }}>{error}</div>
 
                                                 </div>

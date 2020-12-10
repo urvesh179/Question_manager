@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './Context/UserContext';
 import { LanguageProvider } from './Context/LanguageContext';
 import { QuestionProvider } from './Context/QuestionContext';
+import { AnswerProvider } from './Context/AnswerContext';
 //localStorage.clear();
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.render(
       <UserProvider>
         <LanguageProvider>
           <QuestionProvider>
-            <App />
+            <AnswerProvider>
+              <App />
+            </AnswerProvider>
           </QuestionProvider>
         </LanguageProvider>
       </UserProvider>
