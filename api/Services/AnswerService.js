@@ -49,6 +49,18 @@ exports.getById = async (req, res) => {
 }
 
 
+exports.getAllByQuestion = async (req, res) => {
+    try {
+        const data = await Answer.find({
+            questionId : req.params.id,
+            isDeleted:false
+        }).populate("questionId")
+        res.status(200).send(data)
+
+    } catch (err) {
+        return res.status(400).send("bad request");
+    }
+}
 exports.delete = async (req, res) => {
     try {
         const data = await Answer.findById(req.params.id);

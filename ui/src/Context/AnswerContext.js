@@ -10,7 +10,14 @@ function AnswerReducer(state, action) {
 			return { ...state, answer: action.data.answer, error: null }
 		case ActionNames.ADD_ANSWER_FAILED:
 			return { ...state, error: action.data.error, answer: null }
-		
+		case ActionNames.ANSWER_LIST:
+			return { ...state, answers: action.data.answers }
+		case ActionNames.REMOVE_ANSWER:
+			return { ...state, answer: null }
+		case ActionNames.GET_ANSWER:
+			return { ...state, answer: action.data.answer }
+		case ActionNames.UPDATE_ANSWER:
+			return { ...state, answer: null }
 		default: {
 			throw new Error(`Unhandled action type: ${action.type}`)
 		}
@@ -20,6 +27,7 @@ function AnswerReducer(state, action) {
 function AnswerProvider({ children }) {
 	var [state, dispatch] = React.useReducer(AnswerReducer, {
 		answer: null,
+		answers: []
 	})
 
 	return (
