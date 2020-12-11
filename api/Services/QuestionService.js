@@ -1,31 +1,45 @@
-const Question=require('../models/Question');
+const Question = require('../models/Question');
+const Answer = require('../models/Answer');
 
 exports.getAll = async (req, res) => {
     try {
-        const data = await Question.find({isDeleted:false}).populate("languageId")
-        res.status(200).send(data)
+        var final = [];
+        await Question.find({ isDeleted: false })
+            .populate("languageId")
+            .exec()
+            .then(async (data1) => {
+                var i = 0;
+                await data1.forEach(async (d) => {
+                    await Answer.find({ questionId: d._id }).count()
+                        .exec()
+                        .then((ans) => {
+                            i++;
+                            final.push({ data: d, count: ans })
+                        })
+                    if (i == data1.length) {
+                        res.status(200).send(final)
+                    }
+                })
+            })
+
 
     } catch (err) {
         return res.status(400).send("bad request");
     }
 }
 
-exports.add=async(req,res)=>
-{
-    try{
-        const question=new Question(req.body);
-        const result=await question.save();
-        if(result)
-        {
+exports.add = async (req, res) => {
+    try {
+        const question = new Question(req.body);
+        const result = await question.save();
+        if (result) {
             return res.status(201).send(result);
         }
-        else
-        {
+        else {
             return res.status(400).send("bad request");
         }
 
-    }catch(err)
-    {
+    } catch (err) {
         res.status(400).send(err);
     }
 }
@@ -52,8 +66,18 @@ exports.getById = async (req, res) => {
 exports.delete = async (req, res) => {
     try {
         const data = await Question.findById(req.params.id);
-        data.isDeleted=true;
+        data.isDeleted = true;
         await data.save();
+
+        const answer = await Answer.find({
+            questionId: req.params.id
+        })
+
+        answer.forEach(async (ans) => {
+            ans.isDeleted = true;
+            await ans.save();
+        });
+
         res.status(200).send(data)
 
     } catch (err) {
@@ -63,12 +87,12 @@ exports.delete = async (req, res) => {
 
 exports.edit = async (req, res) => {
     try {
-        await Question.findByIdAndUpdate(req.params.id, req.body,{new:true,runValidators:true}, (err) => {
+        await Question.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }, (err) => {
             if (err) {
                 return res.status(400).send(err)
             }
             else {
-            return res.status(201).send("Question Updated")
+                return res.status(201).send("Question Updated")
             }
         });
     } catch (e) {
