@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router-dom';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 
@@ -28,7 +28,6 @@ function AddQuestion(props) {
     var [que, setQue] = useState("");
     var [ans, setAns] = useState([]);
     var [validation, setValidation] = useState("");
-
 
     const renderAnswer = (ans, handleChange, deleteAnswer) => {
         return ans.map(detail => (
@@ -73,7 +72,7 @@ function AddQuestion(props) {
         let newAns = [...ans].filter(detail => detail.key !== key);
         setAns(newAns);
     }
-    const handleDetailDataChange = (key, value) => {
+    const handleDataChange = (key, value) => {
         let newAns = [...ans];
         newAns[key].ans = value;
         setAns(newAns);
@@ -163,9 +162,8 @@ function AddQuestion(props) {
         return isValid;
     }
 
-
-
     return (
+
         <>
             <Header />
             <div className="page-content" style={{ height: "100%" }} >
@@ -230,8 +228,8 @@ function AddQuestion(props) {
                                                     <div className="validation-invalid-label">{validation["answer"]}</div>
                                                 </div>
                                             </div>
-                                            
-                                            {renderAnswer(ans, handleDetailDataChange, deleteAnswer)}
+
+                                            {renderAnswer(ans, handleDataChange, deleteAnswer)}
                                             <div class="form-group row">
                                                 <div class="card-header header-elements-inline" style={{ marginLeft: "700px" }}>
                                                     <h5 class="card-title"></h5>
