@@ -26,13 +26,12 @@ function AddQuestion(props) {
 
     var [language, setLanguage] = useState([]);
     var [que, setQue] = useState("");
-    var [ans, setAns] = useState("");
+    var [ans, setAns] = useState([]);
     var [validation, setValidation] = useState("");
 
-    const [details, setDetails] = useState([]);
 
-    const renderSpecifications = (details, handleChange, deleteAnswer) => {
-        return details.map(detail => (
+    const renderAnswer = (ans, handleChange, deleteAnswer) => {
+        return ans.map(detail => (
             <div key={detail.key} >
 
                 <div class="form-group row">
@@ -40,7 +39,6 @@ function AddQuestion(props) {
 
                     <div class="col-lg-9">
                         <SunEditor
-                            setContents={ans}
                             onChange={(val) => handleChange(detail.key, val)}
                             placeholder="Write Answer Here."
                             lang="en"
@@ -66,19 +64,19 @@ function AddQuestion(props) {
     }
 
     const addAnswer = () => {
-        let newDetails = [...details];
-        newDetails.push({ key: details.length, details: "" });
-        setDetails(newDetails);
+        let newAns = [...ans];
+        newAns.push({ key: ans.length, ans: "" });
+        setAns(newAns);
     }
 
     const deleteAnswer = (key) => {
-        let newDetails = [...details].filter(detail => detail.key !== key);
-        setDetails(newDetails);
+        let newAns = [...ans].filter(detail => detail.key !== key);
+        setAns(newAns);
     }
     const handleDetailDataChange = (key, value) => {
-        let newDetails = [...details];
-        newDetails[key].details = value;
-        setDetails(newDetails);
+        let newAns = [...ans];
+        newAns[key].ans = value;
+        setAns(newAns);
     }
 
     useEffect(async () => {
@@ -89,10 +87,10 @@ function AddQuestion(props) {
 
     useEffect(async () => {
         if (question != null) {
-            details.forEach(async (final) => {
+            ans.forEach(async (final) => {
                 const answerdata = {
                     questionId: question._id,
-                    answer: final.details
+                    answer: final.ans
                 }
                 await aactions.addAnswer(answerDispatch, answerdata)
             });
@@ -156,7 +154,7 @@ function AddQuestion(props) {
             err["question"] = "Please enter question.";
         }
 
-        if (details.length == 0) {
+        if (ans.length == 0) {
             isValid = false;
             err["answer"] = "Please add atleast one answer.";
         }
@@ -233,7 +231,7 @@ function AddQuestion(props) {
                                                 </div>
                                             </div>
                                             
-                                            {renderSpecifications(details, handleDetailDataChange, deleteAnswer)}
+                                            {renderAnswer(ans, handleDetailDataChange, deleteAnswer)}
                                             <div class="form-group row">
                                                 <div class="card-header header-elements-inline" style={{ marginLeft: "700px" }}>
                                                     <h5 class="card-title"></h5>

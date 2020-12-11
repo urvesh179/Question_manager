@@ -28,16 +28,16 @@ function QuestionList(props) {
 
     var data = null;
     data = questions.map(q => {
-       
+
         var lan = "";
-		q.languageId.forEach(l => {
-			lan += l.name +  " "
-		});
+        q.data.languageId.forEach(l => {
+            lan += l.name + " "
+        });
         data = (
             <tr>
                 <td>{lan}</td>
-                <td>{q.question}</td>
-                <td></td>
+                <td>{q.data.question}</td>
+                <td>{q.count}</td>
                 <td></td>
                 <td></td>
                 <td class="text-center">
@@ -118,7 +118,8 @@ function QuestionList(props) {
                                             <tr>
                                                 <th>Language</th>
                                                 <th>Question</th>
-                                                <th colSpan="4" class="text-center">Actions</th>
+                                                <th>Total Answer</th>
+                                                <th colSpan="3" class="text-center">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
