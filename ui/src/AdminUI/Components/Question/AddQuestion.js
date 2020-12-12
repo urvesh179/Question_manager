@@ -231,7 +231,7 @@ function AddQuestion(props) {
 
                                             {renderAnswer(ans, handleDataChange, deleteAnswer)}
                                             <div class="form-group row">
-                                                <div class="card-header header-elements-inline" style={{ marginLeft: "700px" }}>
+                                                <div class="card-header header-elements-inline" style={{ marginLeft: "140px" }}>
                                                     <h5 class="card-title"></h5>
                                                     <div class="header-elements">
                                                         <div class="list-icons">
