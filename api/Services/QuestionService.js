@@ -10,7 +10,7 @@ exports.getAll = async (req, res) => {
             .then(async (data1) => {
                 var i = 0;
                 await data1.forEach(async (d) => {
-                    await Answer.find({ questionId: d._id }).count()
+                    await Answer.find({ questionId: d._id,isDeleted:false }).count()
                         .exec()
                         .then((ans) => {
                             i++;
