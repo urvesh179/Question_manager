@@ -10,7 +10,7 @@ exports.getAll = async (req, res) => {
             .then(async (data1) => {
                 var i = 0;
                 await data1.forEach(async (d) => {
-                    await Answer.find({ questionId: d._id,isDeleted:false }).count()
+                    await Answer.find({ questionId: d._id, isDeleted: false }).count()
                         .exec()
                         .then((ans) => {
                             i++;
@@ -100,4 +100,34 @@ exports.edit = async (req, res) => {
     }
 }
 
+exports.getQuestions = async (req, res) => {
+    try {
+        let data = [];
+        if (req.body.question) {
+            data = await Question.find({
+                $or: [
+                    { 'question': { $regex: req.body.question, $options: 'i' } },
+                    { 'languageId': req.body.languageId }
+                ],
+                isDeleted: false,
+            });
+        }
+        else {
+            data = await Question.find({
+                languageId: req.body.languageId,
+                isDeleted: false,
+            });
+        }
+
+        if (data.length > 0) {
+            return res.status(200).send(data)
+        }
+        else {
+            return res.status(400).send("No Data Found")
+        }
+
+    } catch (err) {
+        return res.status(400).send("Question Not Found");
+    }
+}
 
