@@ -100,7 +100,7 @@ function Dashboard(props) {
     }
 
     const viewanswer = (id) => {
-        props.history.push("/admin/answerlist/" + id)
+        props.history.push("/admin/searchanswerlist/" + id)
     }
 
     var data = null;
