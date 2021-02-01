@@ -91,3 +91,18 @@ export const updateQuestion = async (questionDispatch, id ,question) => {
             throw new Error(error);
         })
 };
+
+export const getSearchQuestion = async (questionDispatch,data) => {
+    console.log(data)
+    await axios.post('/question/getQuestions',data)
+        .then(async (response) => {
+            questionDispatch({
+                type: ActionNames.QUESTION_LIST,
+                data: {
+                    questions: response.data
+                }
+            });
+        }).catch(error => {
+            throw new Error(error);
+        })
+};
