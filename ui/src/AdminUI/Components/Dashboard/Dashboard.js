@@ -100,7 +100,7 @@ function Dashboard(props) {
     }
 
     const viewanswer = (id) => {
-        props.history.push("/admin/answerlist/" + id)
+        props.history.push("/admin/searchanswerlist/" + id)
     }
 
     var data = null;
@@ -108,7 +108,7 @@ function Dashboard(props) {
 
         data = (
             <tr>
-                <td><a onClick={() => viewanswer(q._id)}>{q.question}</a></td>
+                <td><a href="#" onClick={() => viewanswer(q._id)}>{q.question}</a></td>
             </tr>
         )
         return data;

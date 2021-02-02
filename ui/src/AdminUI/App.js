@@ -12,6 +12,8 @@ import QuestionList from './Components/Question/QuestionList';
 import EditQuestion from './Components/Question/EditQuestion';
 import AnswerList from './Components/Question/AnswerList';
 import EditAnswer from './Components/Question/EditAnswer';
+import SearchAnswerList from './Components/Question/SearchAnswerList';
+import AddAnswer from './Components/Question/AddAnswer';
 
 
 function App(props) {
@@ -36,9 +38,11 @@ function App(props) {
 
         <Route path="/admin/addquestion" exact component={AddQuestion} />
         <Route path="/admin/questionlist" exact component={QuestionList} />
+        <Route path="/admin/searchanswerlist/:id" exact component={SearchAnswerList} />
         <Route path="/admin/editquestion/:id" exact component={EditQuestion} />
         <Route path="/admin/answerlist/:id" exact component={AnswerList} />
         <Route path="/admin/editanswer/:id" exact component={EditAnswer} />
+        <Route path="/admin/addanswer/:id" exact component={AddAnswer}/>
 
       </Switch>
     </>

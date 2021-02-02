@@ -19,6 +19,11 @@ function QuestionList(props) {
         props.history.push("/admin/editquestion/" + id)
     }
 
+    
+    const addanswer = (id) => {
+        props.history.push("/admin/addanswer/" + id)
+    }
+
     const viewanswer = (id) => {
         props.history.push("/admin/answerlist/" + id)
     }
@@ -54,6 +59,7 @@ function QuestionList(props) {
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a onClick={() => edit(q.data._id)} class="dropdown-item"><i class="icon-pencil"></i>Edit</a>
                                 <a onClick={() => remove(q.data._id)} class="dropdown-item"><i class="icon-cross2"></i>Delete</a>
+                                <a onClick={() => addanswer(q.data._id)} class="dropdown-item"><i class="icon-add-to-list"></i>Add Answers</a>
                                 <a onClick={() => viewanswer(q.data._id)} class="dropdown-item"><i class="icon-list-unordered"></i>View Answers</a>
                             </div>
                         </div>
