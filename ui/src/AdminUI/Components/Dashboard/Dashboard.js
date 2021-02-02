@@ -108,7 +108,7 @@ function Dashboard(props) {
 
         data = (
             <tr>
-                <td><a onClick={() => viewanswer(q._id)}>{q.question}</a></td>
+                <td><a href="#" onClick={() => viewanswer(q._id)}>{q.question}</a></td>
             </tr>
         )
         return data;

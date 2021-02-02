@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import copy from "copy-to-clipboard";  
 
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
@@ -34,17 +35,26 @@ function SearchAnswerList(props) {
         }
     }
 
+    const copyCodeToClipboard = (answer) => {
+       copy(answer.answer);
+        document.getElementById(answer._id).style.color="green";
+    }
+
     var data = null;
 
     data = answers.map(a => {
         data = (
             <tr>
                 <td dangerouslySetInnerHTML={{ __html: a.answer }}></td>
+                <td> </td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                    <div id="copy-div">
+                        <i className="icon-copy4" style={{color:"black"}} id={a._id} onClick={() => copyCodeToClipboard(a)}></i>
+                    </div>
+                </td>
             </tr>
 
         )
@@ -97,9 +107,9 @@ function SearchAnswerList(props) {
 
                                         <thead>
                                             <tr>
-                                                <td colSpan="6" style={{textAlign:'center',fontWeight:'bold',color:'#26a69a'}}><h5>Question : {question}</h5></td>
+                                                <td colSpan="6" style={{ textAlign: 'center', fontWeight: 'bold', color: '#26a69a' }}><h5>Question : {question}</h5></td>
                                             </tr>
-                                           
+
                                         </thead>
                                         <tbody>
 

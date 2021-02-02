@@ -13,6 +13,7 @@ import EditQuestion from './Components/Question/EditQuestion';
 import AnswerList from './Components/Question/AnswerList';
 import EditAnswer from './Components/Question/EditAnswer';
 import SearchAnswerList from './Components/Question/SearchAnswerList';
+import AddAnswer from './Components/Question/AddAnswer';
 
 
 function App(props) {
@@ -41,6 +42,7 @@ function App(props) {
         <Route path="/admin/editquestion/:id" exact component={EditQuestion} />
         <Route path="/admin/answerlist/:id" exact component={AnswerList} />
         <Route path="/admin/editanswer/:id" exact component={EditAnswer} />
+        <Route path="/admin/addanswer/:id" exact component={AddAnswer}/>
 
       </Switch>
     </>
