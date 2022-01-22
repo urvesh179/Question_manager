@@ -1,3 +1,0 @@
-1-login-id,username,password,isDeleted,timestamp
-2-language-id,name,decription,isDeleted,timestamp
-3-QA-id,language_id,que,ans[],isDeleted,timestamp
