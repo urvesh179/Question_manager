@@ -46,6 +46,7 @@ function EditLanguage(props) {
             }
             await actions.updateLanguage(languageDispatch, id, data);
             props.history.push('/admin/languagelist')
+            window.location="/admin/languagelist"
         }
     }
 

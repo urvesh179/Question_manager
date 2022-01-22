@@ -10,7 +10,7 @@ function App() {
   
    <Switch>
      <Route path ="/admin" component = {Admin}/>
-     <Route path="/*" component={Error}/>
+     <Route path="/*" component={Admin}/>
    </Switch>
    </>
   );

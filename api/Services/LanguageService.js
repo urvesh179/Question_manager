@@ -5,6 +5,7 @@ exports.addLanguage=async(req,res)=>
     try{
         const lan=new Language(req.body);
         const result=await lan.save();
+        console.log("----")
         if(result)
         {
             return res.status(201).send(lan);

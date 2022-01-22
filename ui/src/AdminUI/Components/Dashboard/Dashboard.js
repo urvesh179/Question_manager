@@ -9,8 +9,8 @@ import { useLanguageDispatch, useLanguageState } from '../../../Context/Language
 import { useQuestionDispatch, useQuestionState } from '../../../Context/QuestionContext';
 
 function Dashboard(props) {
-
-
+    
+    var v= 1
     var style = {
         height: "150px"
     }
@@ -36,6 +36,9 @@ function Dashboard(props) {
     useEffect(async () => {
         await lactions.getAllLanguage(languageDispatch);
     }, [])
+    // useEffect(async()=>{
+    //     window.location.reload(false)
+    // },[localStorage.getItem('user')])
 
     var lan = languages.map(l => {
         lan = (<option value={l._id}>{l.name}</option>)
@@ -113,7 +116,7 @@ function Dashboard(props) {
         )
         return data;
     })
-
+    //window.location = "/admin"
     return (
         <>
             <Header />

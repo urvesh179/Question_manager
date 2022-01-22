@@ -3,7 +3,7 @@ import Avatar from 'react-avatar';
 
 function Header(props) {
 
-	var logo="../../assets/images/logo.jpeg";
+	//var logo="../../assets/images/logo.jpeg";
 	var user = JSON.parse(localStorage.getItem('user'));
 	
 
@@ -17,11 +17,11 @@ function Header(props) {
 	return (
 		<>
 			<div className="navbar navbar-expand-md navbar-dark" style={style}>
-				<div className="navbar-brand">
+				{/* <div className="navbar-brand">
 					<a href="#" className="d-inline-block">
 						<img src={logo} alt="" style={style.img}/>
 					</a>
-				</div>
+				</div> */}
 
 
 				<div className="collapse navbar-collapse" id="navbar-mobile">

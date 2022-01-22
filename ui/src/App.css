@@ -6,6 +6,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+.dataTable .dataTables_empty {
+  display: none;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

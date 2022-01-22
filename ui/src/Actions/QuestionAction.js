@@ -93,7 +93,7 @@ export const updateQuestion = async (questionDispatch, id ,question) => {
 };
 
 export const getSearchQuestion = async (questionDispatch,data) => {
-    console.log(data)
+   // console.log(data)
     await axios.post('/question/getQuestions',data)
         .then(async (response) => {
             questionDispatch({

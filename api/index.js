@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 var port =process.env.PORT || 8001;
 var app=require('./app');
 

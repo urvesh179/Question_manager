@@ -70,6 +70,7 @@ function EditQuestion(props) {
             }
             await actions.updateQuestion(questionDispatch, id, data);
             props.history.push('/admin/questionlist')
+            window.location="/admin/questionlist"
         }
     }
 

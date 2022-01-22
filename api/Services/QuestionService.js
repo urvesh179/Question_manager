@@ -32,6 +32,7 @@ exports.add = async (req, res) => {
     try {
         const question = new Question(req.body);
         const result = await question.save();
+      //  console.log(req);
         if (result) {
             return res.status(201).send(result);
         }

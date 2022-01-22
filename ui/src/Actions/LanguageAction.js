@@ -15,6 +15,7 @@ export const addLanguage = async (languageDispatch, language) => {
                     language: response.data
                 }
             });
+           
         }).catch(error => {
             languageDispatch({
                 type: ActionNames.ADD_LANGUAGE_FAILED,
@@ -22,6 +23,7 @@ export const addLanguage = async (languageDispatch, language) => {
                     error: "Something Went Wrong"
                 }
             });
+           
         })
 };
 

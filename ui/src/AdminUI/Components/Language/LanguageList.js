@@ -17,6 +17,7 @@ function LanguageList(props) {
 
     const edit = (id) => {
         props.history.push("/admin/editlanguage/" + id)
+        window.location=`/admin/editlanguage/${id}`
     }
 
     const remove = async (id) => {
@@ -58,6 +59,7 @@ function LanguageList(props) {
 
     const addlanguage = () => {
         props.history.push("/admin/addlanguage");
+        window.location="/admin/addlanguage"
     }
 
 

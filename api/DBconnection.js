@@ -1,6 +1,8 @@
 const mongoose=require('mongoose');
 // const url=process.env.MONGO || "mongodb://localhost:27017/Questionsystem";
-const url=process.env.MONGO || "mongodb+srv://nidhi:nidhi123@passportlogin.2wcok.mongodb.net/Questionsystem";
+const dotenv = require('dotenv');
+dotenv.config();
+const url=process.env.MONGO 
 mongoose.connect(url,{
     useNewUrlParser:true,
     useCreateIndex:true,

@@ -11,7 +11,7 @@ function Login(props) {
     var [password, setPassword] = useState("");
 
 
-    var logo = "../assets/images/logo.jpeg";
+   // var logo = "../assets/images/logo.jpeg";
     var path = "../assets/images/about_layout.png";
     var style = {
         backgroundImage: "url(" + path + ")",
@@ -30,7 +30,7 @@ function Login(props) {
         }
 
         await actions.loginAction(userDispatch, user);
-
+        window.location="/admin"
     }
 
 
@@ -43,7 +43,7 @@ function Login(props) {
                     <div className="card mb-0">
                         <div className="card-body">
                             <div className="text-center mb-3">
-                                <img src={logo} width="220px" />
+                                {/* <img src={logo} width="220px" /> */}
                                 <h5 className="mb-0">Login to your account</h5>
                                 <span className="d-block text-muted">Enter your credentials below</span>
 

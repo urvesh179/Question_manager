@@ -81,6 +81,7 @@ function AddQuestion(props) {
     useEffect(async () => {
         if (answer != null) {
             props.history.push("/admin/questionlist")
+            window.location="/admin/questionlist"
         }
     }, [error, answer])
 
@@ -136,6 +137,7 @@ function AddQuestion(props) {
                 question: que
             }
             await actions.addQuestion(questionDispatch, data);
+           
         }
     }
 

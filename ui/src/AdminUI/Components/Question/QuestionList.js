@@ -17,15 +17,18 @@ function QuestionList(props) {
 
     const edit = (id) => {
         props.history.push("/admin/editquestion/" + id)
+        window.location=`/admin/editquestion/${id}`
     }
 
     
     const addanswer = (id) => {
         props.history.push("/admin/addanswer/" + id)
+        window.location=`/admin/addanswer/${id}`
     }
 
     const viewanswer = (id) => {
         props.history.push("/admin/answerlist/" + id)
+        window.location=`/admin/answerlist/${id}`
     }
 
     const remove = async (id) => {
@@ -73,6 +76,7 @@ function QuestionList(props) {
 
     const addquestion = () => {
         props.history.push("/admin/addquestion");
+        window.location="/admin/addquestion"
     }
 
 

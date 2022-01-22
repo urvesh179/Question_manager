@@ -1,5 +1,5 @@
 import axios from 'axios';
 const axiosInstance=axios.create({
-    baseURL:"http://localhost:8001/"    
+    baseURL:"https://urvesh-question-app.herokuapp.com/"    
 });
  export default axiosInstance;

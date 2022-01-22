@@ -1,6 +1,10 @@
 {
   "name": "ui",
   "version": "0.1.0",
+  "engines": {
+    "node": "v16.13.0",
+    "npm": "8.1.0"
+  },
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",

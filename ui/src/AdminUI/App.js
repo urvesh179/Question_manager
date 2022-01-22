@@ -14,6 +14,7 @@ import AnswerList from './Components/Question/AnswerList';
 import EditAnswer from './Components/Question/EditAnswer';
 import SearchAnswerList from './Components/Question/SearchAnswerList';
 import AddAnswer from './Components/Question/AddAnswer';
+import { useEffect } from 'react';
 
 
 function App(props) {
@@ -21,10 +22,16 @@ function App(props) {
   var { token } = useUserState();
 
   var content = null;
+  // const load = ()=>{
+  //   window.location="/admin"
+  // }
+  // useEffect(()=>{
+  //   load()
+  // },[localStorage.getItem('user')])
  
   return (
     <>
-      {token == null && content == null ? <Redirect to="/admin/login" /> : null}
+      {token == null  ? <Redirect to="/admin/login" /> : null}
 
       <Switch>
         

@@ -48,6 +48,7 @@ function EditAnswer(props) {
             }
             await actions.updateAnswer(answerDispatch, id, data);
             props.history.push('/admin/answerlist/'+answer.questionId)
+            window.location=`/admin/answerlist/${answer.questionId}`
         }
     }
 

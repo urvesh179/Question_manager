@@ -25,6 +25,7 @@ function AnswerList(props) {
 
     const edit = (editId) => {
         props.history.push("/admin/editanswer/" + editId)
+        window.location=`/admin/editanswer/${editId}`
     }
 
     const remove = async (deleteId) => {

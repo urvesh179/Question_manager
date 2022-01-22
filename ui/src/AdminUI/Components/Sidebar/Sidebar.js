@@ -17,7 +17,7 @@ function Sidebar(proprs) {
 
 							
 							<li className="nav-item">
-								<a href="/admin" className="nav-link active">
+								<a href="/admin" className="nav-link active" role="button" >
 									<i className="icon-home4"></i>
 									<span>
 										Dashboard
@@ -25,21 +25,21 @@ function Sidebar(proprs) {
 								</a>
 							</li>
 							<li className="nav-item nav-item-submenu">
-								<a  className="nav-link"><i className="icon-books"></i> <span>Language</span></a>
+								<a  className="nav-link" role="button"><i className="icon-books" ></i> <span>Language</span></a>
 
 								<ul className="nav nav-group-sub" data-submenu-title="language">
-									<li className="nav-item"><a href="/admin/addlanguage" className="nav-link">Add Langauge</a></li>
-									<li className="nav-item"><a href="/admin/languagelist" className="nav-link">Langauge List</a></li>
+									<li className="nav-item"><a href="/admin/addlanguage" className="nav-link" role="button">Add Langauge</a></li>
+									<li className="nav-item"><a href="/admin/languagelist" className="nav-link" role="button" >Langauge List</a></li>
 
 								</ul>
 							</li>
 
 							<li className="nav-item nav-item-submenu">
-								<a  className="nav-link"><i className="icon-question7"></i> <span>Question</span></a>
+								<a  className="nav-link"><i className="icon-question7" role="button"></i> <span>Question</span></a>
 
 								<ul className="nav nav-group-sub" data-submenu-title="question">
-									<li className="nav-item"><a href="/admin/addquestion" className="nav-link">Add Question</a></li>
-									<li className="nav-item"><a href="/admin/questionlist" className="nav-link">Question List</a></li>
+									<li className="nav-item"><a href="/admin/addquestion" className="nav-link" role="button">Add Question</a></li>
+									<li className="nav-item"><a href="/admin/questionlist" className="nav-link" role="button">Question List</a></li>
 
 								</ul>
 							</li>

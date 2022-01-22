@@ -20,6 +20,7 @@ function AddLanguage(props) {
     useEffect(() => {
         if (language != null) {
             props.history.push("/admin/languagelist")
+            window.location="/admin/languagelist"
         }
     }, [error, language])
 
@@ -40,6 +41,12 @@ function AddLanguage(props) {
                 description
             }
             await actions.addLanguage(languageDispatch,data);
+            
+            // if(!error){
+            //     window.location="/admin/languagelist"
+            //     console.log(error)
+            // }
+            
         }
     }
 
